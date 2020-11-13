@@ -1,0 +1,14 @@
+.login-card {
+  width: 100%;
+  -webkit-box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.3);
+}
+
+div[role="alert"] {
+  font-size: 12px;
+}
+input,
+input::placeholder {
+  font-size: 14px;
+}
