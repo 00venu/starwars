@@ -15,7 +15,26 @@ const rootReducer = combineReducers({
   login: LoginReducer,
 });
 
-const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+const saveToLocalStorage = (state) => {
+  const dataState = JSON.stringify(state);
+  localStorage.setItem("state", dataState);
+};
+
+const loadLocalstorage = () => {
+  const dataState = localStorage.getItem("state");
+  if (dataState === null || dataState === undefined) return undefined;
+  if (dataState) return JSON.parse(dataState);
+};
+
+const dataFromLocalstore = loadLocalstorage();
+
+const store = createStore(
+  rootReducer,
+  dataFromLocalstore,
+  applyMiddleware(ReduxThunk)
+);
+
+store.subscribe(() => saveToLocalStorage(store.getState()));
 
 ReactDOM.render(
   <Provider store={store}>

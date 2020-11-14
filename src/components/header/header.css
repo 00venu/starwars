@@ -1,0 +1,43 @@
+.header-main {
+  display: flex;
+  background-color: #fff !important;
+  align-items: center;
+  justify-content: space-between;
+}
+.main-logo {
+  width: 80px;
+  height: 65px;
+  background-image: url("https://cdn.iconscout.com/icon/free/png-256/starwars-5-555964.png");
+  background-size: cover;
+  background-position: 0 -5px;
+}
+
+.icon-parent {
+  width: 40px;
+  height: 40px;
+  background-color: #ccc;
+  border-radius: 50%;
+  position: relative;
+}
+.icon-user {
+  font-size: 20px;
+  color: #333 !important;
+  position: absolute;
+  top: 8px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+}
+.block-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.block-right h3 {
+  padding: 0 10px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  padding-right: 20px;
+}

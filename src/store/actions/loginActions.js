@@ -2,6 +2,8 @@ import axios from "axios";
 export const LOGIN_AUTH = "LOGIN_AUTH";
 export const AUTH_TOKEN = "AUTH_TOKEN";
 
+export const LOGOUT = "LOGOUT";
+
 export const loginAuth = (credentails) => {
   return (dispatch) => {
     axios
@@ -23,5 +25,11 @@ export const authTokenFun = (authStatus) => {
   return {
     type: AUTH_TOKEN,
     authToken: authStatus,
+  };
+};
+
+export const logout = () => {
+  return {
+    type: LOGOUT,
   };
 };
