@@ -10,9 +10,11 @@ import ReduxThunk from "redux-thunk";
 import { BrowserRouter } from "react-router-dom";
 
 import LoginReducer from "./store/reducers/loginReducer";
+import SearchReducer from "./store/reducers/searchReducer";
 
 const rootReducer = combineReducers({
   login: LoginReducer,
+  search: SearchReducer,
 });
 
 const saveToLocalStorage = (state) => {

@@ -27,12 +27,9 @@ const HeaderComponent = (props) => {
           <h3>{data.loginDetails.username}</h3>
           <Button
             type="primary"
-            style={{ backgroundColor: "#ccc", border: 0, color: "#333" }}
-            icon={<PoweroffOutlined style={{ color: "#333" }} />}
+            icon={<PoweroffOutlined />}
             onClick={logoutFun}
-          >
-            Logout
-          </Button>
+          ></Button>
         </div>
       </Header>
     </Layout>
