@@ -1,6 +1,7 @@
 import { SEARCH_RESULT } from "../actions/searchAction";
 const initialState = {
   searchData: [],
+  noResult: false,
 };
 
 const searchReducer = (state = initialState, action) => {

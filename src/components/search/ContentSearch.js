@@ -10,22 +10,31 @@ const ContentSearch = (props) => {
   const [searchWord, setSearchWord] = useState("");
   const [planetResult, setPlanetResult] = useState(null);
   const [loadMoreBtn, setLoadMoreBtn] = useState(false);
+  const [noResult, setNoResult] = useState("Loading...");
 
   const dispatch = useDispatch();
   const data = useSelector((state) => state.search);
 
   let loadMore = loadMoreBtn && <Button>loading more</Button>;
+
   useEffect(() => {
-    dispatch(searchResult(searchWord));
+    const delayDebounceFn = setTimeout(() => {
+      dispatch(searchResult(searchWord));
+      setNoResult("Loading...");
+    }, 500);
+    return () => clearTimeout(delayDebounceFn);
   }, [searchWord]);
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    const delayDebounceFn = setTimeout(() => {
+      if (searchWord.length > 0 && data.searchData.length === 0) {
+        setNoResult("No Result");
+      }
+    }, 1000);
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchWord, data]);
 
   const onSearch = (e) => setSearchWord(e.target.value);
-  const onSearchFun = (value) => setSearchWord(value);
-
   return (
     <div>
       <Row>
@@ -33,14 +42,13 @@ const ContentSearch = (props) => {
           <Search
             placeholder="input search text"
             onChange={(e) => onSearch(e)}
-            onSearch={onSearchFun}
             enterButton
             size="large"
           />
         </Col>
       </Row>
       <div style={{ paddingTop: "20px" }}>
-        {data.searchData.length > 0 && (
+        {data.searchData.length > 0 ? (
           <List
             grid={{
               gutter: 16,
@@ -57,6 +65,12 @@ const ContentSearch = (props) => {
               </List.Item>
             )}
           />
+        ) : (
+          <div>
+            {searchWord.length > 0 && data.searchData.length === 0
+              ? noResult
+              : null}
+          </div>
         )}
       </div>
     </div>
