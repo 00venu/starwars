@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { Input, Row, Col, List, Card, Button } from "antd";
+import { DribbbleOutlined, UsergroupAddOutlined } from "@ant-design/icons";
 
 import { useSelector, useDispatch } from "react-redux";
-import { searchResult } from "../../store/actions/searchAction";
+import { searchResult, loadMoreAction } from "../../store/actions/searchAction";
+import './contentSearch.css';
 
 const { Search } = Input;
 
 const ContentSearch = (props) => {
   const [searchWord, setSearchWord] = useState("");
-  const [planetResult, setPlanetResult] = useState(null);
-  const [loadMoreBtn, setLoadMoreBtn] = useState(false);
   const [noResult, setNoResult] = useState("Loading...");
 
   const dispatch = useDispatch();
   const data = useSelector((state) => state.search);
 
-  let loadMore = loadMoreBtn && <Button>loading more</Button>;
+  const loadMoreFun = () => {
+    dispatch(loadMoreAction(data.next))
+  }
+
+  let loadMore = data.next !== null && (
+    <Button type="primary" onClick={loadMoreFun}>loading more</Button>
+  );
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -52,26 +58,26 @@ const ContentSearch = (props) => {
           <List
             grid={{
               gutter: 16,
-              xl: 4,
+              xl: 5,
             }}
             loadMore={loadMore}
             dataSource={data.searchData}
             renderItem={(item) => (
               <List.Item>
-                <Card title={item.name}>
-                  <h3>Population</h3>
-                  <span>{item.population}</span>
+                <Card title={item.name} >
+                  <h3 className='head-pop'>Population</h3>
+                  <span ><UsergroupAddOutlined className='userGroup-icon' />{item.population}</span>
                 </Card>
               </List.Item>
             )}
           />
         ) : (
-          <div>
-            {searchWord.length > 0 && data.searchData.length === 0
-              ? noResult
-              : null}
-          </div>
-        )}
+            <div className='loading-txt'>
+              {searchWord.length > 0 && data.searchData.length === 0
+                ? noResult
+                : null}
+            </div>
+          )}
       </div>
     </div>
   );
