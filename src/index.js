@@ -16,7 +16,6 @@ const rootReducer = combineReducers({
   login: LoginReducer,
   search: SearchReducer,
 });
-
 const saveToLocalStorage = (state) => {
   const dataState = JSON.stringify(state);
   localStorage.setItem("state", dataState);

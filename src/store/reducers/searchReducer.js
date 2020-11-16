@@ -1,4 +1,5 @@
 import { SEARCH_RESULT, LOAD_MORE } from "../actions/searchAction";
+import { LOGOUT } from '../actions/loginActions';
 const initialState = {
   searchData: [],
   noResult: false,
@@ -18,6 +19,13 @@ const searchReducer = (state = initialState, action) => {
         ...state,
         searchData: [...state.searchData, ...action.searchData],
         next: action.next
+      }
+    case LOGOUT:
+      return {
+        ...state,
+        searchData: [],
+        noResult: false,
+        next: null,
       }
     default:
       return state;
