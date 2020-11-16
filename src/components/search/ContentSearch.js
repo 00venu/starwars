@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { Input, Row, Col, List, Card, Button } from "antd";
 import { UsergroupAddOutlined } from "@ant-design/icons";
 
 import { useSelector, useDispatch } from "react-redux";
 import { searchResult, loadMoreAction } from "../../store/actions/searchAction";
 
-import { getnewData } from './contentSearchService'
 import './contentSearch.css';
 
 const { Search } = Input;
@@ -13,7 +12,6 @@ const { Search } = Input;
 const ContentSearch = (props) => {
   const [searchWord, setSearchWord] = useState("");
   const [noResult, setNoResult] = useState("Loading...");
-
   const dispatch = useDispatch();
   const data = useSelector((state) => state.search);
 
@@ -25,11 +23,11 @@ const ContentSearch = (props) => {
     <Button type="primary" onClick={loadMoreFun}>loading more</Button>
   );
 
+
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       dispatch(searchResult(searchWord));
       setNoResult("Loading...");
-
     }, 500);
     return () => clearTimeout(delayDebounceFn);
   }, [searchWord]);
@@ -40,16 +38,11 @@ const ContentSearch = (props) => {
         setNoResult("No Result");
       }
     }, 1000);
-    // console.log(data.searchData)
-
     return () => clearTimeout(delayDebounceFn);
   }, [searchWord, data]);
 
-  useEffect(() => {
-    console.log(getnewData(data.searchData))
-  }, [data.searchData])
-
   const onSearch = (e) => setSearchWord(e.target.value);
+
   return (
     <div>
       <Row>
@@ -62,6 +55,7 @@ const ContentSearch = (props) => {
           />
         </Col>
       </Row>
+
       <div style={{ paddingTop: "20px" }}>
         {data.searchData.length > 0 ? (
           <List
@@ -92,4 +86,4 @@ const ContentSearch = (props) => {
   );
 };
 
-export default ContentSearch;
+export default React.memo(ContentSearch);

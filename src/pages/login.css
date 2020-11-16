@@ -12,3 +12,9 @@ input,
 input::placeholder {
   font-size: 14px;
 }
+.initial-loading{
+  font-size: 35px; 
+   text-align: center;
+   padding-top: 250px;
+  
+}

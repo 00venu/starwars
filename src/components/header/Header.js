@@ -13,6 +13,7 @@ const HeaderComponent = (props) => {
   const dispatch = useDispatch();
 
   const logoutFun = () => {
+    window.localStorage.removeItem('state');
     dispatch(logout());
     props.history.push("/");
   };

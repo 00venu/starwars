@@ -19,7 +19,7 @@ export const getnewData = (data) => {
                 fontSize: fontsize,
             })
         });
-        return arr1
-    }
 
+    }
+    return arr1
 }

@@ -3,18 +3,15 @@ import { useSelector } from "react-redux";
 import { Layout } from "antd";
 import "./search.css";
 import ContentSearch from "../components/search/ContentSearch";
-
 import Header from "../components/header/Header";
-
 const { Content } = Layout;
-
 const Search = (props) => {
   const data = useSelector((state) => state.login);
   useEffect(() => {
     if (data.authToken === false) {
       props.history.push("/");
     }
-  }, []);
+  }, [data.authToken])
 
   return (
     <div>
