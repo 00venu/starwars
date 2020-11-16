@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Input, Row, Col, List, Card, Button } from "antd";
-import { DribbbleOutlined, UsergroupAddOutlined } from "@ant-design/icons";
+import { UsergroupAddOutlined } from "@ant-design/icons";
 
 import { useSelector, useDispatch } from "react-redux";
 import { searchResult, loadMoreAction } from "../../store/actions/searchAction";
+
+import { getnewData } from './contentSearchService'
 import './contentSearch.css';
 
 const { Search } = Input;
@@ -27,6 +29,7 @@ const ContentSearch = (props) => {
     const delayDebounceFn = setTimeout(() => {
       dispatch(searchResult(searchWord));
       setNoResult("Loading...");
+
     }, 500);
     return () => clearTimeout(delayDebounceFn);
   }, [searchWord]);
@@ -37,8 +40,14 @@ const ContentSearch = (props) => {
         setNoResult("No Result");
       }
     }, 1000);
+    // console.log(data.searchData)
+
     return () => clearTimeout(delayDebounceFn);
   }, [searchWord, data]);
+
+  useEffect(() => {
+    console.log(getnewData(data.searchData))
+  }, [data.searchData])
 
   const onSearch = (e) => setSearchWord(e.target.value);
   return (
@@ -64,7 +73,7 @@ const ContentSearch = (props) => {
             dataSource={data.searchData}
             renderItem={(item) => (
               <List.Item>
-                <Card title={item.name} >
+                <Card title={item.name} className='card-header' headStyle={{ fontSize: item.fontSize }}  >
                   <h3 className='head-pop'>Population</h3>
                   <span ><UsergroupAddOutlined className='userGroup-icon' />{item.population}</span>
                 </Card>
